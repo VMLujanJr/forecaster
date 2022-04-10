@@ -2,11 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forecaster</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    
+<body class="bg-slate-500">
+    <!--  -->
+    <header class="flex justify-center p-5 bg-slate-900 text-2xl">
+        <h1 class="font-bold text-slate-100">Weather Dashboard</h1>
+    </header>
+
+    <main class="container">
+        <div class="container-1">
+            <div class="col-lg-3 bg-light">
+                <h5 class="mt-1">Search for a City:</h5>
+                <div class="input-group mb-3">
+                    <input id="enter-city" type="text" class="form-control" placeholder="Enter a city" aria-label="Enter a city">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
+                <form id="history"></form>
+            </div>
+        </div>
+        <div class="container-2">
+            <div class="currentCity">
+                <div class="curr-temp"></div>
+                <div class="curr-wind"></div>
+                <div class="curr-humidity"></div>
+                <div class="uv-index"></div>
+            </div>
+            <div class="5-day-forecast">
+                <h2>5-Day Forecast:</h2>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
