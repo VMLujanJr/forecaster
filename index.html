@@ -7,40 +7,46 @@
     <title>Forecaster</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="./assets/js/script.js"></script>
 </head>
 <body class="bg-slate-500">
-    <!--  -->
-    <header class="flex justify-center p-5 bg-slate-900 text-2xl">
-        <h1 class="font-bold text-slate-100">Weather Dashboard</h1>
+    <!-- Header section -->
+    <header class="flex justify-center p-5 bg-slate-900">
+        <h1 class="font-bold text-slate-100 text-4xl">Weather Dashboard</h1>
     </header>
 
     <main class="container">
-        <div class="container-1">
-            <div class="col-lg-3 bg-light">
-                <h5 class="mt-1">Search for a City:</h5>
-                <div class="input-group mb-3">
-                    <input id="enter-city" type="text" class="form-control" placeholder="Enter a city" aria-label="Enter a city">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" id="search-button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+        <!-- Search & History section -->
+        <section class="search-container w-full">
+            <div class="flex flex-col m-5 items-center">
+                <form id="form-search" class="flex flex-col w-80 gap-2 mb-5 border-b-2">
+                    <label class="font-bold text-slate-100 text-2xl mb-2" for='city-search'>Search for a City:</label>
+                    <input id="city-search" class="text-center rounded" name='city-search' type="text" placeholder="Enter a city" />
+                    <button id="form-search-button" class="font-bold text-slate-100 text-xl mb-2 bg-slate-900 py-1 px-3 rounded" type="submit">Search</button>
+                </form>
+                <div>
+                    <h3 class="font-bold text-slate-100 text-2xl">History</h3>
+                    <form></form>
                 </div>
-                <button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
-                <form id="history"></form>
             </div>
-        </div>
-        <div class="container-2">
-            <div class="currentCity">
-                <div class="curr-temp"></div>
-                <div class="curr-wind"></div>
-                <div class="curr-humidity"></div>
-                <div class="uv-index"></div>
+        </section>
+        <!--  -->
+        <section class="container-2 w-full">
+            <div class="flex flex-col items-left mx-5 mb-5 p-5 border-2">
+                <h2>Current City:</h2>
+                <div id="curr-temp">Temp</div>
+                <div id="curr-wind">Wind</div>
+                <div id="curr-humidity">Humid</div>
+                <div id="uv-index">Index</div>
             </div>
-            <div class="5-day-forecast">
-                <h2>5-Day Forecast:</h2>
+            <div class="flex flex-col items-left mx-5 p-5 border-2">
+                <h2>Current Forecast:</h2>
+                <div id="curr-temp">Temp</div>
+                <div id="curr-wind">Wind</div>
+                <div id="curr-humidity">Humid</div>
+                <div id="uv-index">Index</div>
             </div>
-        </div>
+        </section>
     </main>
 </body>
 </html>
