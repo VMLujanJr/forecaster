@@ -13,7 +13,9 @@ tailwind.config = {
 // ************************************************************************
 const citySearchEl = document.querySelector('#form-search');
 const citySearchInputEl = document.querySelector('#city-search');
-
+const citiesEl = document.querySelector('#cities');
+const searchTermEl = document.querySelector('#searchTerm');
+const noResultsEl = document.querySelector('#no-results');
 // setup fetch data
 // 1. Geocoding API to get DIRECT GEOCODING from location or zipcode; 
 // Coodinates by location name;
@@ -32,7 +34,7 @@ const searchSubmitHandler = function (event) {
         .value
         .trim();
     
-    // send value to receiveCityCoordinates
+    // send value to receiveCityName
     if (userInput === '' || userInput === null) {
         citySearchInputEl.classList.add("bg-red-300");
     }
@@ -40,19 +42,18 @@ const searchSubmitHandler = function (event) {
         citySearchInputEl.classList.remove("bg-red-300");
         const userInputLowerCase = userInput.toLowerCase();
 
-        receiveCityCoordinates(userInputLowerCase);
+        receiveCityName(userInputLowerCase);
         citySearchInputEl.value = ""; // clear out the element's value
     }
 };
 
-const receiveCityCoordinates = function (cityName) {
+const receiveCityName = function (cityName) {
     const directGeocodingApi = (`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=a9631017536edf15efa95d8a55e62dc6`);
     
     fetch(directGeocodingApi).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data, cityName);
-                getCityWeatherData(data, cityName);
+                extractDataInformation(data, cityName);
             });
         }
         else {
@@ -73,6 +74,47 @@ const receiveCityCoordinates = function (cityName) {
     console.log(lat);
     console.log(lon); */
 
+};
+
+const extractDataInformation = function (cities, cityName) {
+    citiesEl.textContent = ''; // clears old content
+    noResultsEl.textContent = ''; // clears old content
+    searchTermEl.textContent = cityName;
+
+    // check if initial search yielded any results
+    if (cities.length === 0) {
+        noResultsEl.textContent = 'This search did not yield results';
+    }
+
+    // create a loop over cities found
+    for (let i = 0; i < cities.length; i++) {
+        const city = cities[i].name;
+        const lat = cities[i].lat;
+        const lon = cities[i].lon;
+        let state = cities[i].state; // state might return undefined
+        const country = cities[i].country;
+
+        const cityEl = document.createElement("option");
+        // 
+        if (state === undefined || state === '' || state === null) {
+            // format display
+            const displayFormatOptionsAlt = `${city}, ${country}`;
+            
+            // create an option element w/o state if not available
+            cityEl.setAttribute('value', `${displayFormatOptionsAlt}`);
+        }
+        else {
+            // format display
+            const displayFormatOptions = `${city}, ${state}, ${country}`;
+            
+            // create an option element w/ state if available
+            /* const cityEl = document.createElement("option"); */
+            cityEl.setAttribute('value', `${displayFormatOptions}`);
+        }
+
+        /* console.log(city, state, country); */
+        citiesEl.appendChild(cityEl);
+    }
 };
 /* WHEN I search for a city THEN I am presented with current and future conditions for that city and that city is added to the search history */
 
