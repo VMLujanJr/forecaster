@@ -46,7 +46,7 @@ const searchSubmitHandler = function (event) {
 };
 
 const receiveCityCoordinates = function (cityName) {
-    const directGeocodingApi = (`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=a9631017536edf15efa95d8a55e62dc6`);
+    const directGeocodingApi = (`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=a9631017536edf15efa95d8a55e62dc6`);
     
     fetch(directGeocodingApi).then(function(response) {
         if (response.ok) {
