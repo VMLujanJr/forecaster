@@ -20,9 +20,11 @@
         <section class="search-container w-full">
             <div class="flex flex-col m-5 items-center">
                 <form id="form-search" class="flex flex-col w-80 gap-2 mb-5 border-b-2">
-                    <label class="font-bold text-slate-100 text-2xl mb-2" for='city-search'>Search for a City:</label>
-                    <input id="city-search" class="text-center rounded" name='city-search' type="text" placeholder="Enter a city" />
-                    <button id="form-search-button" class="font-bold text-slate-100 text-xl mb-2 bg-slate-900 py-1 px-3 rounded" type="submit">Search</button>
+                    <label class="font-bold text-slate-100 text-2xl mb-2" for='city-search'>Search for a City: <span id="searchTerm"></span></label>
+                    <div class="text-red-400 animate-pulse" id="no-results"></div>
+                    <input id="city-search" class="text-center rounded" name='city-search' type="text" placeholder="Enter a city" list="cities" />
+                    <datalist id="cities"></datalist>
+                    <button id="form-search-button" class="font-bold text-slate-100 text-xl mb-2 bg-slate-900 py-1 px-3 rounded hover:bg-slate-400" type="submit">Search</button>
                 </form>
                 <div>
                     <h3 class="font-bold text-slate-100 text-2xl">History</h3>
