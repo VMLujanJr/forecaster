@@ -22,6 +22,13 @@ const citiesEl = document.querySelector('#cities');
 const searchTermEl = document.querySelector('#searchTerm');
 const noResultsEl = document.querySelector('#no-results');
 
+// display data; not yet assigned
+/* const displayCityEl = document.querySelector('#display-city');
+const displayTempEl = document.querySelector('#display-temp');
+const displayWindEl = document.querySelector('#display-wind');
+const displayHumidityEl = document.querySelector('#display-humidity');
+const displayUvIndexEl = document.querySelector('#display-uvindex'); */
+
 // ************************************************************************
 // Function(s)
 // ************************************************************************
@@ -52,7 +59,7 @@ const fetchCityName = function (cityName) {
     fetch(directGeocodingApi).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                createCityList(data);
+                createCityList(data, cityName);
             });
         }
         else {
@@ -65,7 +72,7 @@ const fetchCityName = function (cityName) {
     });
 };
 
-const createCityList = function (searchCityName) {
+const createCityList = function (searchCityName, cityName) {
     citiesEl.textContent = ''; // clears old content
     noResultsEl.textContent = ''; // clears old content
     searchTermEl.textContent = cityName; // supposed to add new search term on search for city
