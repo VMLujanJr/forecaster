@@ -73,6 +73,7 @@ const fetchCityName = function (cityName) {
 };
 
 const createCityList = function (searchCityName, cityName) {
+    debugger;
     citiesEl.textContent = ''; // clears old content
     noResultsEl.textContent = ''; // clears old content
     searchTermEl.textContent = cityName; // supposed to add new search term on search for city
