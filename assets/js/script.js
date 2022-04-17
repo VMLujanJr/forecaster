@@ -11,31 +11,21 @@ tailwind.config = {
     }
 }
 
-/* debugger; */
-
 // ************************************************************************
 // Reference(s)
 // ************************************************************************
 const citySearchEl = document.querySelector('#form-search');
 const citySearchInputEl = document.querySelector('#city-search');
-const citiesEl = document.querySelector('#cities');
-const searchTermEl = document.querySelector('#searchTerm');
-const noResultsEl = document.querySelector('#no-results');
-const containerFiveDaysEl = document.querySelector('#container-fivedays');
+const searchTermEl = document.querySelector('#searchTerm'); // implement it
+const noResultsEl = document.querySelector('#no-results'); // implement it
+const parentContainerEl = document.querySelector('#parent-container');
 
-// display data; not yet assigned
+// render data;
 const renderCityEl = document.querySelector('#curr-city');
 const renderTempEl = document.querySelector('#curr-temp');
 const renderWindEl = document.querySelector('#curr-wind');
 const renderHumidityEl = document.querySelector('#curr-humidity');
 const renderUvIndexEl = document.querySelector('#curr-uvindex');
-
-const futureTempEl = document.querySelector('#future-temp');
-const futureWindEl = document.querySelector('#future-wind');
-const futureHumidityEl = document.querySelector('#future-humidity');
-const futureUvIndexEl = document.querySelector('#future-uvindex');
-
-const itfDayOneEl = document.querySelector('#itfDayOneEl');
 
 
 // ************************************************************************
@@ -58,6 +48,7 @@ const searchSubmitHandler = function (event) {
         const modifiedCityName = userInput.toLowerCase();
 
         fetchCityName(modifiedCityName);
+        localStorage.setItem('History', modifiedCityName) // save searchTerm; create sep function
         citySearchInputEl.value = ''; // clear out element's value
     }
 };
@@ -82,8 +73,8 @@ const fetchCityName = function (cityName) {
     });
 };
 
-const createCityList = function (searchCityName, cityName) {
-    /* debugger; */
+/* const createCityList = function (searchCityName, cityName) {
+    debugger;
     citiesEl.textContent = ''; // clears old content
     noResultsEl.textContent = ''; // clears old content
     searchTermEl.textContent = cityName; // supposed to add new search term on search for city
@@ -107,7 +98,7 @@ const createCityList = function (searchCityName, cityName) {
         cityEl.setAttribute('data-lat', `${lat}`);
         cityEl.setAttribute('data-lon', `${lon}`);
         
-       /*  localStorage.setItem(`${city}`, `${lat}, ${lon}`); */
+       localStorage.setItem(`${city}`, `${lat}, ${lon}`);
         
         // if state is undefined, empty, or null
         if (state === undefined || state === '' || state === null) {
@@ -122,15 +113,11 @@ const createCityList = function (searchCityName, cityName) {
             const displayFormatOptions = `${city}, ${state}, ${country}`;
             
             // create an option element w/ state if available
-            /* const cityEl = document.createElement("option"); */
+            const cityEl = document.createElement("option");
             cityEl.setAttribute('value', `${displayFormatOptions}`);
         }   
         citiesEl.appendChild(cityEl);
     }
-};
-
-/* const getCityCoordinates = function () {
-
 }; */
 
 const fetchSelectedCityData = function (lat, lon, cityName) { // receive latitutde & longitude from selected city
@@ -154,8 +141,7 @@ const renderWeather = function (fetchData, cityName) {
     const {temp, wind_speed, humidity, uvi} = fetchData.current;
     const {daily} = fetchData;
     console.log(daily);
-    
-        
+
     // current weather
     renderCityEl.textContent = cityName;
     renderTempEl.innerHTML = `${temp}&#176;F`;
@@ -163,22 +149,32 @@ const renderWeather = function (fetchData, cityName) {
     renderHumidityEl.textContent = `${humidity}% humidity`;
     renderUvIndexEl.textContent = `${uvi} UV Index`;
 
+    // render container for 5-Day Weather Forecast
+    let itfContainerEl = document.createElement('div'); // itf = in the future
+    itfContainerEl.classList = 'flex flex-col items-left mx-5 p-5 border-2 rounded text-slate-100 font-bold';
+    itfContainerEl.setAttribute('id', 'container-fivedays');
+
+    // append child container // container-fivedays to parent-container
+    parentContainerEl.appendChild(itfContainerEl);
+
     // future forecast  
     for (let i = 0; i <= 5; i++) {
-        
         // create sections
         let dailyWeatherEl = document.createElement('section');
         dailyWeatherEl.classList = 'flex';
         dailyWeatherEl.setAttribute('id', `subcontainer-fivedays-${i}`);
 
         // append sections container first...
-        containerFiveDaysEl.appendChild(dailyWeatherEl);
+        itfContainerEl.appendChild(dailyWeatherEl);
 
         // create date header
         let dateOfWeekEl = document.createElement('h2');
         dateOfWeekEl.classList = 'w-1/3';
         dateOfWeekEl.setAttribute('id', 'date');
-        dateOfWeekEl.textContent = `Date-${i}`; // input current day of the week
+
+        // add date
+        let dateEl = new Date(`${daily[i].dt}` * 1000);
+        dateOfWeekEl.textContent = dateEl.toDateString();
         
         // append date child to subcontainer
         dailyWeatherEl.appendChild(dateOfWeekEl);
@@ -193,6 +189,7 @@ const renderWeather = function (fetchData, cityName) {
 
         // create list item // temperature
         let currentTempEl = document.createElement('li');
+        currentTempEl.classList = 'w-1/3';
         currentTempEl.setAttribute('id', `curr-temp-${i}`);
         currentTempEl.innerHTML = `${daily[i].temp.day}&#176;F`;
 
@@ -201,6 +198,7 @@ const renderWeather = function (fetchData, cityName) {
 
         // create list item // wind_speed
         let currentWindEl = document.createElement('li');
+        currentWindEl.classList = 'w-1/3';
         currentWindEl.setAttribute('id', `curr-wind-${i}`);
         currentWindEl.textContent = `${daily[i].wind_speed} mph`;
 
@@ -209,6 +207,7 @@ const renderWeather = function (fetchData, cityName) {
         
         // create list item // humidity
         let currentHumidityEl = document.createElement('li');
+        currentHumidityEl.classList = 'w-1/3';
         currentHumidityEl.setAttribute('id', `curr-humidity-${i}`);
         currentHumidityEl.textContent = `${daily[i].humidity}%`;
 

@@ -23,7 +23,6 @@
                     <label class="font-bold text-slate-100 text-2xl mb-2" for='city-search'>Search for a City: <span id="searchTerm"></span></label>
                     <div class="text-red-400 animate-pulse" id="no-results"></div>
                     <input id="city-search" class="text-center rounded" name='city-search' type="text" placeholder="Enter a city" list="cities" />
-                    <datalist id="cities"></datalist>
                     <button id="form-search-button" class="font-bold text-slate-100 text-xl mb-2 bg-slate-900 py-1 px-3 rounded hover:bg-slate-400" type="submit">Search</button>
                 </form>
                 <div>
@@ -33,8 +32,8 @@
             </div>
         </section>
 
-        <!-- 5-Day Weather Forecast  -->
-        <section class="container-2 w-full">
+        <section class="container-2 w-full" id="parent-container">
+            <!-- Current Day Forecast -->
             <div class="flex flex-col items-left mx-5 mb-5 p-5 border-2" id="">
                 <h2 id="curr-city">Current City</h2>
                 <ul class="flex justify-center gap-5">
@@ -44,26 +43,18 @@
                     <li id="curr-uvindex">Index</li>
                 </ul>
             </div>
-            <div class="flex flex-col items-left mx-5 p-5 border-2" id="container-fivedays">
-                
+
+            <!-- 5-Day Weather Forecast -->
+<!--             <div class="flex flex-col items-left mx-5 p-5 border-2 rounded text-slate-100 font-bold" id="container-fivedays">
                 
                 <section class="flex" id="1">
                     <h2 class="w-1/3" id="day-1">Day 1</h2>
                     <ul class="flex justify-center gap-5 w-2/3" id="#itfDayOneEl">
-                        <li id="future-temp-1">Temp</li>
-                        <li id="future-wind-1">Wind</li>
-                        <li id="future-humidity-1">Humid</li>
+                        <li class="w-1/3" id="future-temp-1">Temp</li>
+                        <li class="w-1/3" id="future-wind-1">Wind</li>
+                        <li class="w-1/3" id="future-humidity-1">Humid</li>
                     </ul>
                 </section>
-
-
-
-
-
-
-
-
-
                 <section class="flex" id="2">
                     <h2 class="w-1/3" id="day-2">Day 2</h2>
                     <ul class="flex justify-center gap-5 w-2/3">
@@ -96,7 +87,7 @@
                         <li id="future-humidity-5">Humid</li>
                     </ul>
                 </section>
-            </div>
+            </div> -->
         </section>
     </main>
 </body>
