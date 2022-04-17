@@ -21,6 +21,7 @@ const citySearchInputEl = document.querySelector('#city-search');
 const citiesEl = document.querySelector('#cities');
 const searchTermEl = document.querySelector('#searchTerm');
 const noResultsEl = document.querySelector('#no-results');
+const containerFiveDaysEl = document.querySelector('#container-fivedays');
 
 // display data; not yet assigned
 const renderCityEl = document.querySelector('#curr-city');
@@ -152,7 +153,9 @@ const fetchSelectedCityData = function (lat, lon, cityName) { // receive latitut
 const renderWeather = function (fetchData, cityName) {
     const {temp, wind_speed, humidity, uvi} = fetchData.current;
     const {daily} = fetchData;
+    console.log(daily);
     
+        
     // current weather
     renderCityEl.textContent = cityName;
     renderTempEl.innerHTML = `${temp}&#176;F`;
@@ -162,13 +165,57 @@ const renderWeather = function (fetchData, cityName) {
 
     // future forecast  
     for (let i = 0; i <= 5; i++) {
-        itfDayOneEl.createElement('li');
-        itfDayOneEl.textContent = 'hello';
-    }
-/*     for (let i = 0; i <= 5; i++) {
         
-    } */
-}
+        // create sections
+        let dailyWeatherEl = document.createElement('section');
+        dailyWeatherEl.classList = 'flex';
+        dailyWeatherEl.setAttribute('id', `subcontainer-fivedays-${i}`);
+
+        // append sections container first...
+        containerFiveDaysEl.appendChild(dailyWeatherEl);
+
+        // create date header
+        let dateOfWeekEl = document.createElement('h2');
+        dateOfWeekEl.classList = 'w-1/3';
+        dateOfWeekEl.setAttribute('id', 'date');
+        dateOfWeekEl.textContent = `Date-${i}`; // input current day of the week
+        
+        // append date child to subcontainer
+        dailyWeatherEl.appendChild(dateOfWeekEl);
+
+        // create unordered list
+        let dailyForecastEl = document.createElement('ul');
+        dailyForecastEl.classList = 'flex justify-center gap-5 w-2/3';
+        dailyForecastEl.setAttribute('id', `daily-forecast`);
+
+        // append unordered list
+        dailyWeatherEl.appendChild(dailyForecastEl);
+
+        // create list item // temperature
+        let currentTempEl = document.createElement('li');
+        currentTempEl.setAttribute('id', `curr-temp-${i}`);
+        currentTempEl.innerHTML = `${daily[i].temp.day}&#176;F`;
+
+        // append list item // temperature to unordered list
+        dailyForecastEl.appendChild(currentTempEl);
+
+        // create list item // wind_speed
+        let currentWindEl = document.createElement('li');
+        currentWindEl.setAttribute('id', `curr-wind-${i}`);
+        currentWindEl.textContent = `${daily[i].wind_speed} mph`;
+
+        // append list item // wind_speed to unordered list
+        dailyForecastEl.appendChild(currentWindEl);
+        
+        // create list item // humidity
+        let currentHumidityEl = document.createElement('li');
+        currentHumidityEl.setAttribute('id', `curr-humidity-${i}`);
+        currentHumidityEl.textContent = `${daily[i].humidity}%`;
+
+        // append list item // humidity to unordered list
+        dailyForecastEl.appendChild(currentHumidityEl);
+    }
+};
 
 // ************************************************************************
 // Event Listener(s)
