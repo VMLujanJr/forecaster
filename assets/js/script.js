@@ -157,11 +157,11 @@ const renderWeather = function (fetchData, cityName) {
     // append child container // container-fivedays to parent-container
     parentContainerEl.appendChild(itfContainerEl);
 
-    // future forecast  
-    for (let i = 0; i <= 5; i++) {
+    // future 5-day forecast  
+    for (let i = 1; i <= 5; i++) {
         // create sections
         let dailyWeatherEl = document.createElement('section');
-        dailyWeatherEl.classList = 'flex';
+        dailyWeatherEl.classList = 'flex border-b-2 border-indigo-400 p-1 m-2';
         dailyWeatherEl.setAttribute('id', `subcontainer-fivedays-${i}`);
 
         // append sections container first...
@@ -169,7 +169,7 @@ const renderWeather = function (fetchData, cityName) {
 
         // create date header
         let dateOfWeekEl = document.createElement('h2');
-        dateOfWeekEl.classList = 'w-1/3';
+        dateOfWeekEl.classList = 'w-1/5';
         dateOfWeekEl.setAttribute('id', 'date');
 
         // add date
@@ -179,9 +179,45 @@ const renderWeather = function (fetchData, cityName) {
         // append date child to subcontainer
         dailyWeatherEl.appendChild(dateOfWeekEl);
 
+        // create img
+        let weatherIconEl = document.createElement('span');
+        weatherIconEl.classList = 'justify-center w-1/5';
+        
+        // if weather is clear sky(☀), few clouds (⛅), scattered clouds (☁), broken clouds (), shower rain (🌧), rain (🌦), thunderstorm (⛈), snow (❄), mist (🌫)...
+        let weatherCondition = daily[i].weather[0].main;
+
+        switch (weatherCondition) {
+            case 'Clear':
+                weatherIconEl.textContent = '☀';
+                break;
+            case 'Clouds':
+                weatherIconEl.textContent = '⛅';
+                break;
+            case 'Mist':
+                weatherIconEl.textContent = '🌫';
+                break;
+            case 'Snow':
+                weatherIconEl.textContent = '❄';
+                break;
+            case 'Rain':
+                weatherIconEl.textContent = '🌧';
+                break;
+            case 'Drizzle':
+                weatherIconEl.textContent = '🌦';
+                break;
+            case 'Thunderstorm':
+                weatherIconEl.textContent = '⛈';
+                break;
+            default:
+                weatherIconEl.textContent = '⁉';
+        }
+
+        // append to section subcontainer
+        dailyWeatherEl.appendChild(weatherIconEl);
+
         // create unordered list
         let dailyForecastEl = document.createElement('ul');
-        dailyForecastEl.classList = 'flex justify-center gap-5 w-2/3';
+        dailyForecastEl.classList = 'flex justify-center gap-5 w-3/5';
         dailyForecastEl.setAttribute('id', `daily-forecast`);
 
         // append unordered list
