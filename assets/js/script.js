@@ -23,11 +23,19 @@ const searchTermEl = document.querySelector('#searchTerm');
 const noResultsEl = document.querySelector('#no-results');
 
 // display data; not yet assigned
-/* const displayCityEl = document.querySelector('#display-city');
-const displayTempEl = document.querySelector('#display-temp');
-const displayWindEl = document.querySelector('#display-wind');
-const displayHumidityEl = document.querySelector('#display-humidity');
-const displayUvIndexEl = document.querySelector('#display-uvindex'); */
+const renderCityEl = document.querySelector('#curr-city');
+const renderTempEl = document.querySelector('#curr-temp');
+const renderWindEl = document.querySelector('#curr-wind');
+const renderHumidityEl = document.querySelector('#curr-humidity');
+const renderUvIndexEl = document.querySelector('#curr-uvindex');
+
+const futureTempEl = document.querySelector('#future-temp');
+const futureWindEl = document.querySelector('#future-wind');
+const futureHumidityEl = document.querySelector('#future-humidity');
+const futureUvIndexEl = document.querySelector('#future-uvindex');
+
+const itfDayOneEl = document.querySelector('#itfDayOneEl');
+
 
 // ************************************************************************
 // Function(s)
@@ -59,7 +67,8 @@ const fetchCityName = function (cityName) {
     fetch(directGeocodingApi).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                createCityList(data, cityName);
+                const {lat, lon, name} = data[0];
+                fetchSelectedCityData(lat, lon, name);
             });
         }
         else {
@@ -73,7 +82,7 @@ const fetchCityName = function (cityName) {
 };
 
 const createCityList = function (searchCityName, cityName) {
-    debugger;
+    /* debugger; */
     citiesEl.textContent = ''; // clears old content
     noResultsEl.textContent = ''; // clears old content
     searchTermEl.textContent = cityName; // supposed to add new search term on search for city
@@ -119,16 +128,19 @@ const createCityList = function (searchCityName, cityName) {
     }
 };
 
-/* const fetchSelectedCityData = function (lat, lon) { // receive latitutde & longitude from selected city
+/* const getCityCoordinates = function () {
+
+}; */
+
+const fetchSelectedCityData = function (lat, lon, cityName) { // receive latitutde & longitude from selected city
     // format open weather api endpoint
-    const openWeatherApiUrl = (`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alertsrtPara}&lang=en&units=imperial&appid=a9631017536edf15efa95d8a55e62dc6`);
+    const openWeatherApiUrl = (`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alertsrtPara}&lang=en&units=imperial&appid=a9631017536edf15efa95d8a55e62dc6`);
 
     // fetch open weather api
     fetch(openWeatherApiUrl).then(function(response) {
         if(response.ok) {
             response.json().then(function(data) {
-                // send data to... which function?
-                // functionName('parameter')
+                renderWeather(data, cityName);
             });
         }
     })
@@ -137,12 +149,26 @@ const createCityList = function (searchCityName, cityName) {
     });
 };
 
-const displaySelectedCityData = function (selectedCity) {
-    const currentCityWeather = selectedCity.current;
+const renderWeather = function (fetchData, cityName) {
+    const {temp, wind_speed, humidity, uvi} = fetchData.current;
+    const {daily} = fetchData;
+    
+    // current weather
+    renderCityEl.textContent = cityName;
+    renderTempEl.innerHTML = `${temp}&#176;F`;
+    renderWindEl.textContent = `${wind_speed} mph`;
+    renderHumidityEl.textContent = `${humidity}% humidity`;
+    renderUvIndexEl.textContent = `${uvi} UV Index`;
 
-
-
-} */
+    // future forecast  
+    for (let i = 0; i <= 5; i++) {
+        itfDayOneEl.createElement('li');
+        itfDayOneEl.textContent = 'hello';
+    }
+/*     for (let i = 0; i <= 5; i++) {
+        
+    } */
+}
 
 // ************************************************************************
 // Event Listener(s)
