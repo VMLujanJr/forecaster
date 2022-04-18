@@ -26,74 +26,23 @@
                     <button id="form-search-button" class="font-bold text-slate-100 text-xl mb-2 bg-slate-900 py-1 px-3 rounded hover:bg-slate-400" type="submit">Search</button>
                 </form>
                 <div class="flex flex-col w-2/5">
-                    <ul>
-                        <li class="font-bold text-center text-slate-100 text-xl bg-slate-900 mb-2 py-1 px-3 rounded hover:bg-slate-400">History</li>
-                        <li class="font-bold text-center text-slate-100 text-xl bg-slate-900 mb-2 py-1 px-3 rounded hover:bg-slate-400">History</li>
-                        <li class="font-bold text-center text-slate-100 text-xl bg-slate-900 mb-2 py-1 px-3 rounded hover:bg-slate-400">History</li>
-                    </ul>
-                    <h3 class="font-bold text-center text-slate-100 text-xl bg-slate-900 py-1 px-3 rounded hover:bg-slate-400">History</h3>
-                    <form></form>
+                    <ul id="searchHistoryContainer"></ul>
                 </div>
             </div>
         </section>
 
         <section class="container-2 w-full" id="parent-container">
             <!-- Current Day Forecast -->
-            <div class="flex flex-col items-left mx-5 mb-5 p-5 border-2" id="">
-                <h2 id="curr-city">Current City</h2>
-
-                <ul class="flex justify-center gap-5">
-                    <li id="curr-temp">Temp</li>
-                    <li id="curr-wind">Wind</li>
-                    <li id="curr-humidity">Humid</li>
-                    <li id="curr-uvindex">Index</li>
+            <div class="flex flex-col items-left mx-5 p-5 rounded text-slate-100 font-bold" id="">
+                <h2 class="w-full" id="curr-city"></h2>
+                <div class="w-full" id="curr-date"></div>
+                <ul class="flex justify-center w-full">
+                    <li class="w-1/4" id="curr-temp"></li>
+                    <li class="w-1/4" id="curr-wind"></li>
+                    <li class="w-1/4" id="curr-humidity"></li>
+                    <li class="w-1/4" id="curr-uvindex"></li>
                 </ul>
             </div>
-
-            <!-- 5-Day Weather Forecast -->
-<!--             <div class="flex flex-col items-left mx-5 p-5 border-2 rounded text-slate-100 font-bold" id="container-fivedays">
-                
-                <section class="flex" id="1">
-                    <h2 class="w-1/3" id="day-1">Day 1</h2>
-                    <ul class="flex justify-center gap-5 w-2/3" id="#itfDayOneEl">
-                        <li class="w-1/3" id="future-temp-1">Temp</li>
-                        <li class="w-1/3" id="future-wind-1">Wind</li>
-                        <li class="w-1/3" id="future-humidity-1">Humid</li>
-                    </ul>
-                </section>
-                <section class="flex" id="2">
-                    <h2 class="w-1/3" id="day-2">Day 2</h2>
-                    <ul class="flex justify-center gap-5 w-2/3">
-                        <li id="future-temp-2">Temp</li>
-                        <li id="future-wind-2">Wind</li>
-                        <li id="future-humidity-2">Humid</li>
-                    </ul>
-                </section>
-                <section class="flex" id="3">
-                    <h2 class="w-1/3" id="day-3">Day 3</h2>
-                    <ul class="flex justify-center gap-5 w-2/3">
-                        <li id="future-temp-3">Temp</li>
-                        <li id="future-wind-3">Wind</li>
-                        <li id="future-humidity-3">Humid</li>
-                    </ul>
-                </section>
-                <section class="flex" id="4">
-                    <h2 class="w-1/3" id="day-4">Day 4</h2>
-                    <ul class="flex justify-center gap-5 w-2/3">
-                        <li id="future-temp-4">Temp</li>
-                        <li id="future-wind-4">Wind</li>
-                        <li id="future-humidity-4">Humid</li>
-                    </ul>
-                </section>
-                <section class="flex" id="5">
-                    <h2 class="w-1/3" id="day-5">Day 5</h2>
-                    <ul class="flex justify-center gap-5 w-2/3">
-                        <li id="future-temp-5">Temp</li>
-                        <li id="future-wind-5">Wind</li>
-                        <li id="future-humidity-5">Humid</li>
-                    </ul>
-                </section>
-            </div> -->
         </section>
     </main>
 </body>

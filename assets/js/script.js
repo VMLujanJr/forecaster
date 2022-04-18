@@ -26,7 +26,12 @@ const renderTempEl = document.querySelector('#curr-temp');
 const renderWindEl = document.querySelector('#curr-wind');
 const renderHumidityEl = document.querySelector('#curr-humidity');
 const renderUvIndexEl = document.querySelector('#curr-uvindex');
+const renderCurrDateEl = document.querySelector('#curr-date');
 
+// searchHistoryList
+const searchHistoryListEl = document.querySelector('#searchHistoryContainer');
+
+let searchHistoryList = [];
 
 // ************************************************************************
 // Function(s)
@@ -46,11 +51,17 @@ const searchSubmitHandler = function (event) {
     else if (userInput) {
         citySearchInputEl.classList.remove("bg-red-300");
         const modifiedCityName = userInput.toLowerCase();
-
+        
+        searchHistoryList.push(modifiedCityName);
         fetchCityName(modifiedCityName);
-        localStorage.setItem('History', modifiedCityName) // save searchTerm; create sep function
+        saveSearchHistory();
+        renderSearchHistory();
         citySearchInputEl.value = ''; // clear out element's value
     }
+};
+
+const saveSearchHistory = function () {
+    localStorage.setItem('History', JSON.stringify(searchHistoryList));
 };
 
 const fetchCityName = function (cityName) {
@@ -137,17 +148,64 @@ const fetchSelectedCityData = function (lat, lon, cityName) { // receive latitut
     });
 };
 
+const renderSearchHistory = function () {
+    let renderHistoryList = localStorage.getItem('History');
+    
+    // if no history, set array empty
+    if (!renderHistoryList) {
+        return false;
+    }
+
+    // parse into array of objects
+    renderHistoryList = JSON.parse(renderHistoryList);
+
+    // clear old content
+    searchHistoryListEl.textContent = '';
+
+    // loop through History array
+    for (var i = 0; i < renderHistoryList.length; i++) {
+        // create list item
+        let listItem = document.createElement('li');
+        listItem.classList = 'font-bold text-center text-slate-100 text-xl bg-slate-900 mb-2 py-1 px-3 rounded hover:bg-slate-400';
+        listItem.textContent = `${renderHistoryList[i]}`;
+
+        // append
+        searchHistoryListEl.appendChild(listItem);
+    }
+};
+
 const renderWeather = function (fetchData, cityName) {
-    const {temp, wind_speed, humidity, uvi} = fetchData.current;
+/*     // clear old content
+    parentContainerEl.textContent = ''; */
+    
+    const {temp, wind_speed, humidity, uvi, dt} = fetchData.current;
     const {daily} = fetchData;
-    console.log(daily);
+
+    if (uvi <= 2) {
+        renderUvIndexEl.classList = 'bg-green-500 px-2 py-1 rounded';
+    }
+    else if (uvi >= 3 && uvi <= 5) {
+        renderUvIndexEl.classList = 'bg-yellow-500 px-2 py-1 rounded';
+    }
+    else if (uvi >= 6 && uvi <= 7) {
+        renderUvIndexEl.classList = 'bg-orange-500 px-2 py-1 rounded';
+    }
+    else if (uvi >= 8 && uvi <= 10) {
+        renderUvIndexEl.classList = 'bg-red-500 px-2 py-1 rounded';
+    }
+    else if (uvi >= 11) {
+        renderUvIndexEl.classList = 'bg-purple-500 px-2 py-1 rounded';
+    }
 
     // current weather
     renderCityEl.textContent = cityName;
     renderTempEl.innerHTML = `${temp}&#176;F`;
     renderWindEl.textContent = `${wind_speed} mph`;
-    renderHumidityEl.textContent = `${humidity}% humidity`;
+    renderHumidityEl.textContent = `${humidity}%`;
     renderUvIndexEl.textContent = `${uvi} UV Index`;
+    
+    let dateEl = new Date(`${dt}` * 1000);
+    renderCurrDateEl.textContent = dateEl.toDateString();
 
     // render container for 5-Day Weather Forecast
     let itfContainerEl = document.createElement('div'); // itf = in the future
