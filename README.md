@@ -52,29 +52,29 @@ THEN I am again presented with current and future conditions for that city
 **Technical Acceptance: 40%**
 
 - [ ] Satisfies all of the above acceptance criteria
-- [ ] Uses the OpenWeather API to retrieve weather data
-- [ ] Uses localStorage to store persistent data
+- [x] Uses the OpenWeather API to retrieve weather data
+- [x] Uses localStorage to store persistent data
 
 **Deployment: 32%**
 
-- [ ] Application deployed at live URL
+- [x] Application deployed at live URL
 - [ ] Application loads with no errors
-- [ ] Application GitHub URL submitted
+- [x] Application GitHub URL submitted
 - [ ] Portfolio at live URL submitted, featuring project
 
 **Application Quality: 15%**
 
-- [ ] Application user experience is intuitive and easy to navigate
-- [ ] Application user interface style is clean and polished
+- [x] Application user experience is intuitive and easy to navigate
+- [x] Application user interface style is clean and polished
 - [ ] Application resembles mock-up functionality
 
 **Repository Quality: 13%**
 
-- [ ] Repository has a unique name
-- [ ] Repository follows best practices for file structure and naming conventions
-- [ ] Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-- [ ] Repository contains multiple descriptive commit messages
-- [ ] Repository contains quality README.md with description, screenshots, link to deployed application
+- [x] Repository has a unique name
+- [x] Repository follows best practices for file structure and naming conventions
+- [x] Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
+- [x] Repository contains multiple descriptive commit messages
+- [x] Repository contains quality README.md with description, screenshots, link to deployed application
 
 ### **MOCK UP**
 
