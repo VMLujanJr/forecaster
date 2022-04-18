@@ -11,7 +11,7 @@
 </head>
 <body class="bg-slate-500">
     <!-- Header section -->
-    <header class="flex justify-center p-5 bg-slate-900">
+    <header class="flex justify-center p-5 bg-slate-900 bg-gradient-to-r from-sky-300 via-sky-400 to-sky-700">
         <h1 class="font-bold text-slate-100 text-4xl">Weather Dashboard</h1>
     </header>
 
@@ -23,32 +23,25 @@
                     <label class="font-bold text-slate-100 text-2xl mb-2" for='city-search'>Search for a City: <span id="searchTerm"></span></label>
                     <div class="text-red-400 animate-pulse" id="no-results"></div>
                     <input id="city-search" class="text-center rounded" name='city-search' type="text" placeholder="Enter a city" list="cities" />
-                    <datalist id="cities"></datalist>
                     <button id="form-search-button" class="font-bold text-slate-100 text-xl mb-2 bg-slate-900 py-1 px-3 rounded hover:bg-slate-400" type="submit">Search</button>
                 </form>
-                <div>
-                    <h3 class="font-bold text-slate-100 text-2xl">History</h3>
-                    <form></form>
+                <div class="flex flex-col w-2/5">
+                    <ul id="searchHistoryContainer"></ul>
                 </div>
             </div>
         </section>
-        <!--  -->
-        <section class="container-2 w-full">
-            <div class="flex flex-col items-left mx-5 mb-5 p-5 border-2" id="">
-                <h2 id="display-city">Current City</h2>
-                <ul class="flex justify-center">
-                    <li id="display-temp">Temp</li>
-                    <li id="display-wind">Wind</li>
-                    <li id="display-humidity">Humid</li>
-                    <li id="display-uvindex">Index</li>
+
+        <section class="container-2 w-full" id="parent-container">
+            <!-- Current Day Forecast -->
+            <div class="flex flex-col items-left mx-5 p-5 rounded text-slate-100 font-bold" id="">
+                <h2 class="w-full" id="curr-city"></h2>
+                <div class="w-full" id="curr-date"></div>
+                <ul class="flex justify-center w-full">
+                    <li class="w-1/4" id="curr-temp"></li>
+                    <li class="w-1/4" id="curr-wind"></li>
+                    <li class="w-1/4" id="curr-humidity"></li>
+                    <li class="w-1/4" id="curr-uvindex"></li>
                 </ul>
-            </div>
-            <div class="flex flex-col items-left mx-5 p-5 border-2">
-                <h2>Current Forecast:</h2>
-                <div id="curr-temp">Temp</div>
-                <div id="curr-wind">Wind</div>
-                <div id="curr-humidity">Humid</div>
-                <div id="uv-index">Index</div>
             </div>
         </section>
     </main>
